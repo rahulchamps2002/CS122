@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tasketron Calendar</title>
+
+  <!-- Bootstrap 5 & FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap & FullCalendar Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<a href="/" class="back-link">← Back to Task List</a>
+<h2 class="text-center mb-4">📅 Calendar View of Tasks</h2>
+
+<div id="calendar"></div>
+
+<!-- Task Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Task Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalDesc"></p>
+        <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+      </div>
+      <div class="modal-footer">
+        <a id="completeBtn" class="btn btn-success">Mark Complete</a>
+        <a id="deleteBtn" class="btn btn-danger">Delete</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: {{ calendar_events | safe }},
+    eventClick: function(info) {
+      document.getElementById("modalTitle").innerText = info.event.title;
+      document.getElementById("modalDesc").innerText = info.event.extendedProps.description;
+      document.getElementById("modalStatus").innerText = info.event.extendedProps.completed ? "✔ Completed" : "✘ Incomplete";
+
+      const taskId = info.event.id;
+      document.getElementById("completeBtn").href = `/toggle/${taskId}?next=/calendar`;
+      document.getElementById("deleteBtn").href = `/delete/${taskId}?next=/calendar`;
+
+      const taskModal = new bootstrap.Modal(document.getElementById('taskModal'));
+      taskModal.show();
+    }
+  });
+    calendar.render();
+  });
+</script>
+
+</body>
+</html>

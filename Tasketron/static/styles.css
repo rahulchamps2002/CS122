@@ -1,0 +1,124 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #4a90e2;
+}
+
+.task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.task-form input,
+.task-form select,
+.task-form button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.task-form button {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.task-form button:hover {
+    background: #3578d4;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.task-item.done {
+    background: #e7f9ed;
+    color: #777;
+    text-decoration: line-through;
+}
+
+.task-title {
+    font-weight: bold;
+}
+
+.task-meta {
+    font-size: 0.85rem;
+    color: #666;
+    margin-left: 10px;
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.complete-btn {
+    color: green;
+    border: 2px solid green;
+    font-weight: bold;
+    background-color: white;
+}
+
+.complete-btn.completed {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+
+.complete-btn:hover {
+    opacity: 0.85;
+}
+
+.delete-btn {
+    color: red;
+    border-color: red;
+}
+
+.delete-btn:hover {
+    background-color: #ffe0e0;
+}
+

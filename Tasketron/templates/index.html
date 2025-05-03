@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasketron 🗂</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>🗂 Tasketron</h1>
+
+    <form method="POST" action="/add" class="task-form">
+        <input name="title" placeholder="Title" required>
+        <input name="description" placeholder="Description" required>
+        <input name="category" placeholder="Category">
+        <input name="due_date" placeholder="Due Date (YYYY-MM-DD)">
+        <select name="priority">
+            <option value="">Priority</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+        </select>
+        <button type="submit">➕ Add Task</button>
+    </form>
+    <a href="/calendar" class="btn btn-secondary">📅 View Calendar</a>
+    <ul class="task-list">
+        {% for task in tasks %}
+        <li class="task-item {% if task.completed %}done{% endif %}">
+            <div>
+                <span class="task-title">{{ task.title }}</span>
+                <span class="task-meta">| Due: {{ task.due_date }} | Category: {{ task.category }}</span>
+            </div>
+            <div class="task-actions">
+                <button
+                        class="action-btn complete-btn {% if task.completed %}completed{% endif %}"
+                        onclick="window.location='/toggle/{{ task.id }}'"
+                        title="Toggle Complete">
+                    ✔
+                </button>
+
+                <div>
+                    <button class="action-btn delete-btn" onclick="window.location='/delete/{{ task.id }}'">🗑</button>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
